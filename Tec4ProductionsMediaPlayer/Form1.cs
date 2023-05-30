@@ -1,9 +1,11 @@
 ﻿using AxWMPLib;
 using MediaPlayer;
+using stdole;
 using System;
 using System.Drawing;
 using System.IO;
 using System.Net.Security;
+using System.Reflection;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ToolBar;
@@ -13,27 +15,13 @@ namespace Tec4ProductionsMediaPlayer
 {
     public partial class MediaPlayer : Form
     {
-        //create variables for directory paths of each folder and store the audio files in an array.
+        //create arrays to store the songs
 
-        //directory and array for the general playlist
-        private static string directoryPathAllSongs = @"C:\Users\Bnguy\source\repos\Tec4ProductionsMediaPlayer\Tec4ProductionsMediaPlayer/Songs/General Playlist"; // Replace with your directory path
-        private string[] audioFilesGeneralPlaylist = Directory.GetFiles(directoryPathAllSongs, "*.mp3"); // Get all MP3 files in the directory
-
-        //directory and array for the Filler Music. This is for Simon to populate with enough music for the remaining duration depending on the pre-selected playlist.
-        private static string directoryPathFillerMusic = @"C:\Users\Bnguy\source\repos\Tec4ProductionsMediaPlayer\Tec4ProductionsMediaPlayer/Songs/Filler Music"; // Replace with your directory path
-        private string[] audioFilesFillerMusic = Directory.GetFiles(directoryPathFillerMusic, "*.mp3"); // Get all MP3 files in the directory
-
-        //directory and array for the Walk in song
-        private static string directoryPathWalkInSong = @"C:\Users\Bnguy\source\repos\Tec4ProductionsMediaPlayer\Tec4ProductionsMediaPlayer/Songs/Walk-In Song";
-        private string[] audioFileWalkInSong = Directory.GetFiles(directoryPathWalkInSong, "*.mp3");
-
-        //directory and array for the First Dance Song
-        private static string directoryPathFirstDanceSong = @"C:\Users\Bnguy\source\repos\Tec4ProductionsMediaPlayer\Tec4ProductionsMediaPlayer/Songs/First Dance Song";
-        private string[] audioFileFirstDanceSong = Directory.GetFiles(directoryPathFirstDanceSong, "*.mp3");
-
-        //directory and array for the Father-daughter Dance Song
-        private static string directoryPathFatherDaughter = @"C:\Users\Bnguy\source\repos\Tec4ProductionsMediaPlayer\Tec4ProductionsMediaPlayer/Songs/Father-Daughter Dance Song";
-        private string[] audioFileFatherDaughter = Directory.GetFiles(directoryPathFatherDaughter, "*.mp3");
+        private string[] audioFilesGeneralPlaylist;
+        private string[] audioFilesFillerMusic;
+        private string[] audioFileWalkInSong;
+        private string[] audioFileFirstDanceSong;
+        private string[] audioFileFatherDaughter;
 
         int currentAudioIndex = 0; // Keep track of the current audio file being played
         int currentAudioIndexFillerMusic = 0; // Keep track of the current audio file being played
@@ -59,12 +47,47 @@ namespace Tec4ProductionsMediaPlayer
         //rectangle for the original form's size
         private Rectangle originalFormSize;
 
+        //current an indicator to help display the current playing song
+        private int currentButton;
+        // 1. General Playlist / Filler Playlist
+        // 2. Walk-In Song
+        // 3. First Dance Song
+        // 4. Father-Daughter Dance Song
+
         public MediaPlayer()
         {
+
+
             InitializeComponent();
             //set the default volume and text for the volume
             trackVolume.Value = 50;
             lblVolume.Text = "50%";
+
+            //create variables for directory paths of each folder and store the audio files in an array.
+            string executablePathFatherDaughterDanceSong = Assembly.GetEntryAssembly().Location;
+            string directoryPathFatherDaughterDanceSong = Path.GetDirectoryName(executablePathFatherDaughterDanceSong);
+            string FatherDaughterDanceSongPath = Path.Combine(directoryPathFatherDaughterDanceSong, "Father-Daughter Dance Song");
+            audioFileFatherDaughter = Directory.GetFiles(FatherDaughterDanceSongPath, "*.mp3");
+
+            string executablePathFirstDanceSong = Assembly.GetEntryAssembly().Location;
+            string directoryPathFirstDanceSong = Path.GetDirectoryName(executablePathFirstDanceSong);
+            string FirstDanceSongPath = Path.Combine(directoryPathFirstDanceSong, "First Dance Song");
+            audioFileFirstDanceSong = Directory.GetFiles(FirstDanceSongPath, "*.mp3");
+
+            string executablePathWalkInSong = Assembly.GetEntryAssembly().Location;
+            string directoryPathWalkInSong = Path.GetDirectoryName(executablePathWalkInSong);
+            string WalkInSongPath = Path.Combine(directoryPathWalkInSong, "Walk-In Song");
+            audioFileWalkInSong = Directory.GetFiles(WalkInSongPath, "*.mp3");
+
+            string executablePathGeneralPlaylist = Assembly.GetEntryAssembly().Location;
+            string directoryPathGeneralPlaylist = Path.GetDirectoryName(executablePathGeneralPlaylist);
+            string GeneralPlaylistPath = Path.Combine(directoryPathGeneralPlaylist, "General Playlist");
+            audioFilesGeneralPlaylist = Directory.GetFiles(GeneralPlaylistPath, "*.mp3");
+
+            string executablePathFillerMusic = Assembly.GetEntryAssembly().Location;
+            string directoryPathFillerMusic = Path.GetDirectoryName(executablePathFillerMusic);
+            string FillerMusicPath = Path.Combine(directoryPathFillerMusic, "Filler Music");
+            audioFilesFillerMusic = Directory.GetFiles(FillerMusicPath, "*.mp3");
 
             // Starts the media player with the general playlist so the special songs are not accidentally played.
             if (currentAudioIndex < audioFilesGeneralPlaylist.Length)
@@ -77,9 +100,14 @@ namespace Tec4ProductionsMediaPlayer
 
             }
 
+            //file path for the background visual.
+            string executablePathVisual = Assembly.GetEntryAssembly().Location;
+            string directoryPathVisual = Path.GetDirectoryName(executablePathVisual);
+            string VisualPath = Path.Combine(directoryPathVisual, "Visual");
             //automatically start the visual design background and loop the windows media player.
-            wmpSoundBars.URL = @"C:\Users\Bnguy\source\repos\Tec4ProductionsMediaPlayer\Tec4ProductionsMediaPlayer\Songs\Visual\vecteezy_square-rectangle-picture-border-with-neon-line-footage_10366177_983.mp4";
+            wmpSoundBars.URL = VisualPath + "/BackgroundVisual2.mp4";
             wmpSoundBars.settings.setMode("loop", true);
+            wmpSoundBars.settings.autoStart = true;
 
         }
         //method to remove ".mp3" from the file name
@@ -132,9 +160,9 @@ namespace Tec4ProductionsMediaPlayer
         //method to play the song in the Walk In Dance Song folder.
         private void btnWalkIn_Click(object sender, EventArgs e)
         {
-
+            currentButton = 2;
             wmpSongs.URL = audioFileWalkInSong[0];
-            string fileName = Path.GetFileName(audioFileWalkInSong[0]); // Get the file name without the path
+            string fileName = Path.GetFileName(audioFileWalkInSong[0]);
 
             fileName = fileNameRemove(fileName);
             lblCurrentSong.Text = fileName;
@@ -143,8 +171,9 @@ namespace Tec4ProductionsMediaPlayer
         //method to play the song in the First Dance Song folder.
         private void btnFirstDance_Click(object sender, EventArgs e)
         {
+            currentButton = 3;
             wmpSongs.URL = audioFileFirstDanceSong[0];
-            string fileName = Path.GetFileName(audioFileFirstDanceSong[0]); // Get the file name without the path
+            string fileName = Path.GetFileName(audioFileFirstDanceSong[0]);
 
             fileName = fileNameRemove(fileName);
             lblCurrentSong.Text = fileName;
@@ -153,8 +182,9 @@ namespace Tec4ProductionsMediaPlayer
         //method to play the song in the Father-daughter Dance Song folder.
         private void btnFatherDaughter_Click(object sender, EventArgs e)
         {
+            currentButton = 4;
             wmpSongs.URL = audioFileFatherDaughter[0];
-            string fileName = Path.GetFileName(audioFileFatherDaughter[0]); // Get the file name without the path
+            string fileName = Path.GetFileName(audioFileFatherDaughter[0]);
 
             fileName = fileNameRemove(fileName);
             lblCurrentSong.Text = fileName;
@@ -184,6 +214,7 @@ namespace Tec4ProductionsMediaPlayer
                     {
                         if (customProgressBar1.Value == customProgressBar1.Maximum - 1 || customProgressBar1.Value == customProgressBar1.Maximum)
                         {
+                            currentButton = 1;
                             currentAudioIndex++;
 
                             wmpSongs.URL = audioFilesGeneralPlaylist[currentAudioIndex];
@@ -204,6 +235,7 @@ namespace Tec4ProductionsMediaPlayer
 
                         if (customProgressBar1.Value == customProgressBar1.Maximum - 1)
                         {
+                            currentButton = 1;
                             currentAudioIndexFillerMusic++;
                             wmpSongs.URL = audioFilesFillerMusic[currentAudioIndexFillerMusic];
                             fileName = Path.GetFileName(audioFilesGeneralPlaylist[currentAudioIndexFillerMusic]);
@@ -214,7 +246,28 @@ namespace Tec4ProductionsMediaPlayer
                             wmpSongs.Ctlcontrols.play();
                         }
                     }
+                    //checks to determine which song to display in the Currently playing bar
+                    if (currentButton == 2)
+                    {
+                        string fileName = Path.GetFileName(audioFileWalkInSong[0]);
 
+                        fileName = fileNameRemove(fileName);
+                        lblCurrentSong.Text = fileName;
+                    }
+                    if (currentButton == 3)
+                    {
+                        string fileName = Path.GetFileName(audioFileFirstDanceSong[0]);
+
+                        fileName = fileNameRemove(fileName);
+                        lblCurrentSong.Text = fileName;
+                    }
+                    if (currentButton == 4)
+                    {
+                        string fileName = Path.GetFileName(audioFileFatherDaughter[0]);
+
+                        fileName = fileNameRemove(fileName);
+                        lblCurrentSong.Text = fileName;
+                    }
                 }
                 catch { }
             }
@@ -247,6 +300,9 @@ namespace Tec4ProductionsMediaPlayer
 
             //disables the visual background full screen so the users can't double click it.
             wmpSoundBars.Enabled = false;
+
+            currentButton = 1;
+
         }
 
         //if the application is resized, adjusts each button accordingly.
@@ -279,6 +335,7 @@ namespace Tec4ProductionsMediaPlayer
         //plays the General Playlist music. If there are no songs left, plays the Filler Music playlist.
         private void btnGeneralPlaylist_Click(object sender, EventArgs e)
         {
+            currentButton = 1;
             if (currentAudioIndex >= audioFilesGeneralPlaylist.Length)
             {
 

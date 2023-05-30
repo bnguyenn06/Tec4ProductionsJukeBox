@@ -46,9 +46,9 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panelBlackOut = new System.Windows.Forms.Panel();
             this.btnGeneralPlaylist = new System.Windows.Forms.Button();
-            this.customProgressBar1 = new Tec4ProductionsMediaPlayer.customProgressBar();
             this.wmpSoundBars = new AxWMPLib.AxWindowsMediaPlayer();
             this.wmpSongs = new AxWMPLib.AxWindowsMediaPlayer();
+            this.customProgressBar1 = new Tec4ProductionsMediaPlayer.customProgressBar();
             ((System.ComponentModel.ISupportInitialize)(this.trackVolume)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.wmpSoundBars)).BeginInit();
@@ -174,7 +174,7 @@
             this.lblTrackStart.AutoSize = true;
             this.lblTrackStart.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTrackStart.ForeColor = System.Drawing.Color.White;
-            this.lblTrackStart.Location = new System.Drawing.Point(800, 390);
+            this.lblTrackStart.Location = new System.Drawing.Point(800, 403);
             this.lblTrackStart.Name = "lblTrackStart";
             this.lblTrackStart.Size = new System.Drawing.Size(87, 31);
             this.lblTrackStart.TabIndex = 11;
@@ -185,7 +185,7 @@
             this.lblTrackEnd.AutoSize = true;
             this.lblTrackEnd.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTrackEnd.ForeColor = System.Drawing.Color.White;
-            this.lblTrackEnd.Location = new System.Drawing.Point(1250, 390);
+            this.lblTrackEnd.Location = new System.Drawing.Point(1250, 403);
             this.lblTrackEnd.Name = "lblTrackEnd";
             this.lblTrackEnd.Size = new System.Drawing.Size(87, 31);
             this.lblTrackEnd.TabIndex = 12;
@@ -197,7 +197,7 @@
             this.lblCurrentSong.BackColor = System.Drawing.Color.Black;
             this.lblCurrentSong.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblCurrentSong.ForeColor = System.Drawing.Color.White;
-            this.lblCurrentSong.Location = new System.Drawing.Point(793, 336);
+            this.lblCurrentSong.Location = new System.Drawing.Point(793, 360);
             this.lblCurrentSong.Name = "lblCurrentSong";
             this.lblCurrentSong.Size = new System.Drawing.Size(267, 25);
             this.lblCurrentSong.TabIndex = 14;
@@ -237,25 +237,6 @@
             this.btnGeneralPlaylist.UseVisualStyleBackColor = true;
             this.btnGeneralPlaylist.Click += new System.EventHandler(this.btnGeneralPlaylist_Click);
             // 
-            // customProgressBar1
-            // 
-            this.customProgressBar1.BackColor = System.Drawing.Color.White;
-            this.customProgressBar1.ChannelColor = System.Drawing.Color.White;
-            this.customProgressBar1.ChannelHeight = 10;
-            this.customProgressBar1.ForeBackColor = System.Drawing.Color.Black;
-            this.customProgressBar1.ForeColor = System.Drawing.Color.Black;
-            this.customProgressBar1.Location = new System.Drawing.Point(794, 375);
-            this.customProgressBar1.Name = "customProgressBar1";
-            this.customProgressBar1.ShowMaximun = false;
-            this.customProgressBar1.ShowValue = Tec4ProductionsMediaPlayer.TextPosition.None;
-            this.customProgressBar1.Size = new System.Drawing.Size(534, 12);
-            this.customProgressBar1.SliderColor = System.Drawing.Color.RoyalBlue;
-            this.customProgressBar1.SliderHeight = 15;
-            this.customProgressBar1.SymbolAfter = "";
-            this.customProgressBar1.SymbolBefore = "";
-            this.customProgressBar1.TabIndex = 17;
-            this.customProgressBar1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.customProgressBar1_MouseDown);
-            // 
             // wmpSoundBars
             // 
             this.wmpSoundBars.Enabled = true;
@@ -274,12 +255,31 @@
             this.wmpSongs.Size = new System.Drawing.Size(10, 10);
             this.wmpSongs.TabIndex = 13;
             // 
+            // customProgressBar1
+            // 
+            this.customProgressBar1.BackColor = System.Drawing.Color.White;
+            this.customProgressBar1.ChannelColor = System.Drawing.Color.White;
+            this.customProgressBar1.ChannelHeight = 10;
+            this.customProgressBar1.ForeBackColor = System.Drawing.Color.Black;
+            this.customProgressBar1.ForeColor = System.Drawing.Color.Black;
+            this.customProgressBar1.Location = new System.Drawing.Point(794, 388);
+            this.customProgressBar1.Name = "customProgressBar1";
+            this.customProgressBar1.ShowMaximun = false;
+            this.customProgressBar1.ShowValue = Tec4ProductionsMediaPlayer.TextPosition.None;
+            this.customProgressBar1.Size = new System.Drawing.Size(534, 12);
+            this.customProgressBar1.SliderColor = System.Drawing.Color.RoyalBlue;
+            this.customProgressBar1.SliderHeight = 15;
+            this.customProgressBar1.SymbolAfter = "";
+            this.customProgressBar1.SymbolBefore = "";
+            this.customProgressBar1.TabIndex = 17;
+            this.customProgressBar1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.customProgressBar1_MouseDown);
+            // 
             // MediaPlayer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
-            this.ClientSize = new System.Drawing.Size(1984, 1161);
+            this.ClientSize = new System.Drawing.Size(1904, 1041);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.btnGeneralPlaylist);
             this.Controls.Add(this.customProgressBar1);
@@ -298,7 +298,8 @@
             this.Controls.Add(this.btnPlay);
             this.Controls.Add(this.wmpSoundBars);
             this.Controls.Add(this.wmpSongs);
-            this.MinimumSize = new System.Drawing.Size(800, 600);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MinimumSize = new System.Drawing.Size(1920, 1080);
             this.Name = "MediaPlayer";
             this.Text = "MediaPlayer";
             this.Load += new System.EventHandler(this.Form1_Load_1);

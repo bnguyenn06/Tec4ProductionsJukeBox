@@ -5,7 +5,7 @@ VisualStudioVersion = 17.4.33122.133
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tec4ProductionsMediaPlayer", "Tec4ProductionsMediaPlayer\Tec4ProductionsMediaPlayer.csproj", "{194C1577-AA9B-4FEF-A970-F789343A4CCF}"
 EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "MediaPlayerSetup", "MediaPlayerSetup\MediaPlayerSetup.vdproj", "{05FBD251-EEC3-4419-B330-572D3DAD766F}"
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Tec4 Jukebox", "Tec4 Jukebox\Tec4 Jukebox.vdproj", "{4D9E6797-9265-48D2-8AB5-2C6CFB0E47BF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,8 +17,8 @@ Global
 		{194C1577-AA9B-4FEF-A970-F789343A4CCF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{194C1577-AA9B-4FEF-A970-F789343A4CCF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{194C1577-AA9B-4FEF-A970-F789343A4CCF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{05FBD251-EEC3-4419-B330-572D3DAD766F}.Debug|Any CPU.ActiveCfg = Debug
-		{05FBD251-EEC3-4419-B330-572D3DAD766F}.Release|Any CPU.ActiveCfg = Release
+		{4D9E6797-9265-48D2-8AB5-2C6CFB0E47BF}.Debug|Any CPU.ActiveCfg = Debug
+		{4D9E6797-9265-48D2-8AB5-2C6CFB0E47BF}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
