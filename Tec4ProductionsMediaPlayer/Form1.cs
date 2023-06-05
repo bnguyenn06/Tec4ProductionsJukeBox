@@ -56,7 +56,8 @@ namespace Tec4ProductionsMediaPlayer
 
         public MediaPlayer()
         {
-
+            //enable keyPreview for the hotkeys ESC and F1
+            this.KeyPreview = true;
 
             InitializeComponent();
             //set the default volume and text for the volume
