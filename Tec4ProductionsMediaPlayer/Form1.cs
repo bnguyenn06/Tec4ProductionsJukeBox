@@ -5,6 +5,7 @@ using System;
 using System.Drawing;
 using System.IO;
 using System.Net.Security;
+using System.Numerics;
 using System.Reflection;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
@@ -29,7 +30,6 @@ namespace Tec4ProductionsMediaPlayer
         //create rectangles for each button
         private Rectangle buttonPlayRectangle;
         private Rectangle buttonStopRectangle;
-        private Rectangle buttonPauseRectangle;
         private Rectangle buttonGeneralPlaylistRectangle;
         private Rectangle buttonWalkInSongRectangle;
         private Rectangle buttonFirstDanceSongRectangle;
@@ -53,6 +53,9 @@ namespace Tec4ProductionsMediaPlayer
         // 2. Walk-In Song
         // 3. First Dance Song
         // 4. Father-Daughter Dance Song
+
+        // variable to switch the play button to pause once pressed and vice versa.
+        private bool isPlaying = true;
 
         public MediaPlayer()
         {
@@ -146,21 +149,40 @@ namespace Tec4ProductionsMediaPlayer
         private void btnPlay_Click(object sender, EventArgs e)
         {
             wmpSongs.Ctlcontrols.play();
+
+            if (isPlaying)
+            {
+                wmpSongs.Ctlcontrols.pause();
+                //mediaPlayer.Pause();
+                isPlaying = false;
+                btnPlay.Text = "Play";
+
+            }
+            else
+            {
+                wmpSongs.Ctlcontrols.play();
+                //mediaPlayer.Play();
+                isPlaying = true;
+                btnPlay.Text = "Pause";
+            }
         }
 
         //method for the Stop button. Stops the current song.
         private void btnStop_Click(object sender, EventArgs e)
         {
             wmpSongs.Ctlcontrols.stop();
+            isPlaying = false;
+            btnPlay.Text = "Play";
+               
         }
-        //method for the Pause button. Pauses the current song.
-        private void btnPause_Click(object sender, EventArgs e)
-        {
-            wmpSongs.Ctlcontrols.pause();
-        }
+
         //method to play the song in the Walk In Dance Song folder.
         private void btnWalkIn_Click(object sender, EventArgs e)
         {
+            //sets the Play button to pause.
+            isPlaying = true;
+            btnPlay.Text = "Pause";
+
             currentButton = 2;
             wmpSongs.URL = audioFileWalkInSong[0];
             string fileName = Path.GetFileName(audioFileWalkInSong[0]);
@@ -172,6 +194,10 @@ namespace Tec4ProductionsMediaPlayer
         //method to play the song in the First Dance Song folder.
         private void btnFirstDance_Click(object sender, EventArgs e)
         {
+            //sets the Play button to pause.
+            isPlaying = true;
+            btnPlay.Text = "Pause";
+
             currentButton = 3;
             wmpSongs.URL = audioFileFirstDanceSong[0];
             string fileName = Path.GetFileName(audioFileFirstDanceSong[0]);
@@ -183,6 +209,10 @@ namespace Tec4ProductionsMediaPlayer
         //method to play the song in the Father-daughter Dance Song folder.
         private void btnFatherDaughter_Click(object sender, EventArgs e)
         {
+            //sets the Play button to pause.
+            isPlaying = true;
+            btnPlay.Text = "Pause";
+
             currentButton = 4;
             wmpSongs.URL = audioFileFatherDaughter[0];
             string fileName = Path.GetFileName(audioFileFatherDaughter[0]);
@@ -284,7 +314,6 @@ namespace Tec4ProductionsMediaPlayer
             originalFormSize = new Rectangle(this.Location.X, this.Location.Y, this.Size.Width, this.Size.Height);
             buttonPlayRectangle = new Rectangle(btnPlay.Location.X, btnPlay.Location.Y, btnPlay.Width, btnPlay.Height);
             buttonStopRectangle = new Rectangle(btnStop.Location.X, btnStop.Location.Y, btnStop.Width, btnStop.Height);
-            buttonPauseRectangle = new Rectangle(btnPause.Location.X, btnPause.Location.Y, btnPause.Width, btnPause.Height);
             buttonGeneralPlaylistRectangle = new Rectangle(btnGeneralPlaylist.Location.X, btnGeneralPlaylist.Location.Y, btnGeneralPlaylist.Width, btnGeneralPlaylist.Height);
             buttonWalkInSongRectangle = new Rectangle(btnWalkIn.Location.X, btnWalkIn.Location.Y, btnWalkIn.Width, btnWalkIn.Height);
             buttonFirstDanceSongRectangle = new Rectangle(btnFirstDance.Location.X, btnFirstDance.Location.Y, btnFirstDance.Width, btnFirstDance.Height);
@@ -303,7 +332,6 @@ namespace Tec4ProductionsMediaPlayer
             wmpSoundBars.Enabled = false;
 
             currentButton = 1;
-
         }
 
         //if the application is resized, adjusts each button accordingly.
@@ -311,7 +339,6 @@ namespace Tec4ProductionsMediaPlayer
         {
             resizeControl(buttonPlayRectangle, btnPlay);
             resizeControl(buttonStopRectangle, btnStop);
-            resizeControl(buttonPauseRectangle, btnPause);
             resizeControl(buttonGeneralPlaylistRectangle, btnGeneralPlaylist);
             resizeControl(buttonWalkInSongRectangle, btnWalkIn);
             resizeControl(buttonFirstDanceSongRectangle, btnFirstDance);
@@ -336,6 +363,10 @@ namespace Tec4ProductionsMediaPlayer
         //plays the General Playlist music. If there are no songs left, plays the Filler Music playlist.
         private void btnGeneralPlaylist_Click(object sender, EventArgs e)
         {
+            //sets the Play button to pause.
+            isPlaying = true;
+            btnPlay.Text = "Pause";
+
             currentButton = 1;
             if (currentAudioIndex >= audioFilesGeneralPlaylist.Length)
             {
@@ -374,7 +405,6 @@ namespace Tec4ProductionsMediaPlayer
                 this.FormBorderStyle = FormBorderStyle.None;
                 this.WindowState = FormWindowState.Maximized;
             }
-
         }
     }
 }
